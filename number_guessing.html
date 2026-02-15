@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Number Guessing Game</title>
+    <link rel="stylesheet" href="https://pyscript.net/releases/2026.2.1/core.css" />
+    <script type="module" src="https://pyscript.net/releases/2026.2.1/core.js"></script>
+</head>
+<body bgcolor="gray">
+    <center>
+    <h1>
+        Welcome to My Number Guessing Game!
+    </h1>
+    </center>
+    <p>Enter number (1-10):</p> 
+    <input id="guess" type="number" min="1" max="10">
+    <button id="guessBtn">Guess</button>
+    <p id="result"></p>
+    <py-script>
+    import random
+    from pyscript import document, when
+
+    num = random.randint(1, 10)
+    count = 0
+
+    @when("click", "#guessBtn")
+    def check_guess(event):
+        global count
+        guess = document.getElementById("guess").value
+        result = document.getElementById("result")
+
+        if not guess:
+            result.innerText = "Enter a number!"
+            return
+
+        guess = int(guess)
+        count += 1
+
+        if guess == num:
+            result.innerText = f"Correct! You took {count} tries!"
+        elif guess < num:
+            result.innerText = "Go Higher!"
+        else:
+            result.innerText = "Go Lower!"
+
+    </py-script>
+</body>
+</html>
