@@ -15,20 +15,20 @@
     <p>
     <form id="guessForm">
     <input id="guess" type="number" min="0" max="100" placeholder="Enter Guess">
-    <button id="guessBtn" type="submit">Guess</button>
+    <button id="guessBtn" class="guessBtn" type="submit">Guess</button>
     </form>
     </p>
     
     <p id="result" class="result"></p>
     <p id="attempts" class="attempts">You have 5 attempts</p>
-    <p><button id="restartBtn" type="button" class="try_again" style="display:none;">Try Again</button></p>
+    <p><button id="restartBtn"  class="try_again" style="display:none;">&#x21bb;</button></p>
     </div>
 
     <py-script>
     import random
-    from pyscript import document, when
+    from pyscript import document, when, window
 
-    num = random.randint(0, 100)
+    num = random.randint(0, 5)
     count = 5
 
     @when("click", "#guessBtn")
@@ -41,16 +41,18 @@
         result = document.getElementById("result")
         restartBtn=document.getElementById("restartBtn")
         attempts_display=document.getElementById("attempts")
-
+        result.classList.remove("shake")
         if not guess:
             result.innerText = "Enter a number!"
+            result.classList.add("show")
             return
 
         guess = int(guess)
         count -= 1
         attempts_display.innerText=f"Attempts Left: {count}"
         if guess == num:
-            result.innerText = f"CONGRATULATIONS!\n The correct answer was: {num}"
+            result.innerText = f"CONGRATULATIONS!\n The correct answer was: {num}" 
+            result.classList.add("correct")
             restartBtn.style.display="inline-block"
             guessBtn=document.getElementById("guessBtn")
             guess=document.getElementById("guess")
@@ -60,9 +62,17 @@
 
         elif guess < num:
             result.innerText = "Go Higher!"
+            result.classList.remove("shake")
+            result.offsetWidth  
+            result.classList.add("shake")
 
-        elif guess>num:
-            result.innerText =  "Go Lower!"
+        elif guess > num:
+            result.innerText = "Go Lower!"
+            result.classList.remove("shake")
+            result.offsetWidth  
+            result.classList.add("shake")
+
+
         if count==0:
             result.innerText = f"Uh Oh! GAME OVER!!\n The answer was: {num}"
             restartBtn.style.display="inline-block"
@@ -71,6 +81,7 @@
             guessBtn.disabled=True
             guess.disabled=True
             attempts_display.style.display = "none"
+
 
 
     @when("click","#restartBtn")    
