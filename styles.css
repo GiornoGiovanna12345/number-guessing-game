@@ -1,0 +1,95 @@
+body{
+    background:rgb(31, 45, 80);
+    color: white; 
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-align: center;
+    background-image:
+        linear-gradient(45deg, #192446 25%, transparent 25%),
+        linear-gradient(-45deg, #192446 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #192446 75%),
+        linear-gradient(-45deg, transparent 75%, #192446 75%);
+
+    background-size: 30px 30px;
+    background-position:
+        10 10,
+        10 20px,
+        20px -20px,
+        -20px 10px;
+}
+.result{
+    width:200px;
+    height:50px;
+    border-radius:10px;
+    background-color: rgba(0, 0, 0, 0.32);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    margin:0 auto;
+}
+
+.container{
+    text-align:center;
+}
+
+input{
+    width:120px;
+    height:40px;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 10px;
+    color:black;
+    background-color: #98a9dd9f;
+    font-size:medium;
+    text-align: center;
+}
+
+input::placeholder {
+    color: rgb(18, 17, 17);
+}
+
+button{
+    background: #00c853;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+
+    padding: 12px 10px;
+    border: none;
+    border-radius: 25px;
+
+    cursor: pointer;
+
+    box-shadow: 
+        0 6px 0 #009624,       
+        0 8px 15px rgba(0,0,0,0.4);  
+}
+button:hover {
+    transform: scale(1.05);
+}
+.try_again{
+    background: #41acb2;
+    color: black;
+    font-size: 18px;
+    font-weight: bold;
+
+    padding: 20px 10px;
+    border: none;
+    border-radius: 75px;
+
+    cursor: pointer;
+
+    box-shadow: 
+        0 6px 0 #2f7c80,       
+        0 8px 15px rgba(0,0,0,0.4);  
+}
+
+.attempts{
+    color:rgb(209, 22, 22);
+    font-size: 20px;
+}

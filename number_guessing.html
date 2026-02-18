@@ -2,46 +2,82 @@
 <html>
 <head>
 <title>Number Guessing Game</title>
+    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://pyscript.net/releases/2026.2.1/core.css" />
     <script type="module" src="https://pyscript.net/releases/2026.2.1/core.js"></script>
 </head>
-<body bgcolor="gray">
-    <center>
+<body>
+    <div class="container">
     <h1>
         Welcome to My Number Guessing Game!
     </h1>
-    </center>
-    <p>Enter number (1-10):</p> 
-    <input id="guess" type="number" min="1" max="10">
-    <button id="guessBtn">Guess</button>
-    <p id="result"></p>
+    The number is in between 0-100 
+    <p>
+    <form id="guessForm">
+    <input id="guess" type="number" min="0" max="100" placeholder="Enter Guess">
+    <button id="guessBtn" type="submit">Guess</button>
+    </form>
+    </p>
+    
+    <p id="result" class="result"></p>
+    <p id="attempts" class="attempts">You have 5 attempts</p>
+    <p><button id="restartBtn" type="button" class="try_again" style="display:none;">Try Again</button></p>
+    </div>
+
     <py-script>
     import random
     from pyscript import document, when
 
-    num = random.randint(1, 10)
-    count = 0
+    num = random.randint(0, 100)
+    count = 5
 
     @when("click", "#guessBtn")
-    def check_guess(event):
+    def check_guess(event=None):
         global count
+        if event:
+            event.preventDefault() 
+
         guess = document.getElementById("guess").value
         result = document.getElementById("result")
+        restartBtn=document.getElementById("restartBtn")
+        attempts_display=document.getElementById("attempts")
 
         if not guess:
             result.innerText = "Enter a number!"
             return
 
         guess = int(guess)
-        count += 1
-
+        count -= 1
+        attempts_display.innerText=f"Attempts Left: {count}"
         if guess == num:
-            result.innerText = f"Correct! You took {count} tries!"
+            result.innerText = f"CONGRATULATIONS!\n The correct answer was: {num}"
+            restartBtn.style.display="inline-block"
+            guessBtn=document.getElementById("guessBtn")
+            guess=document.getElementById("guess")
+            guessBtn.disabled=True
+            guess.disabled=True
+            attempts_display.style.display = "none"
+
         elif guess < num:
             result.innerText = "Go Higher!"
-        else:
-            result.innerText = "Go Lower!"
 
+        elif guess>num:
+            result.innerText =  "Go Lower!"
+        if count==0:
+            result.innerText = f"Uh Oh! GAME OVER!!\n The answer was: {num}"
+            restartBtn.style.display="inline-block"
+            guessBtn=document.getElementById("guessBtn")
+            guess=document.getElementById("guess")
+            guessBtn.disabled=True
+            guess.disabled=True
+            attempts_display.style.display = "none"
+
+
+    @when("click","#restartBtn")    
+    def restart_game(event):
+        from pyscript import window
+        window.location.reload()
     </py-script>
+    
 </body>
 </html>
