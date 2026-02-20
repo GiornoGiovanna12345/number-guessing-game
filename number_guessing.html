@@ -9,9 +9,10 @@
 <body>
     <div class="container">
     <h1>
-        Welcome to My Number Guessing Game!
+        Guess That Number!
     </h1>
-    The number is in between 0-100 
+    Your objective is to guess the number. The range is: 0-100<br>
+    You have 5 attempts<br>
     <p>
     <form id="guessForm">
     <input id="guess" type="number" min="0" max="100" placeholder="Enter Guess">
@@ -20,7 +21,7 @@
     </p>
     
     <p id="result" class="result"></p>
-    <p id="attempts" class="attempts">You have 5 attempts</p>
+    <p id="attempts" class="attempts" >All The Best!! </p>
     <p><button id="restartBtn"  class="try_again" style="display:none;">&#x21bb;</button></p>
     </div>
 
@@ -28,7 +29,7 @@
     import random
     from pyscript import document, when, window
 
-    num = random.randint(0, 5)
+    num = random.randint(0, 100)
     count = 5
 
     @when("click", "#guessBtn")
