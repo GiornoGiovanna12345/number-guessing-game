@@ -12,7 +12,7 @@
         Guess That Number!
     </h1>
     Your objective is to guess the number. The range is: 0-100<br>
-    You have 5 attempts<br>
+    You have 7 total attempts<br>
     <p>
     <form id="guessForm">
     <input id="guess" type="number" min="0" max="100" placeholder="Enter Guess">
@@ -21,6 +21,7 @@
     </p>
     
     <p id="result" class="result"></p>
+    <p id="range_display" class="range"></p>
     <p id="attempts" class="attempts" >All The Best!! </p>
     <p><button id="restartBtn"  class="try_again" style="display:none;">&#x21bb;</button></p>
     </div>
@@ -30,19 +31,22 @@
     from pyscript import document, when, window
 
     num = random.randint(0, 100)
-    count = 5
-
+    count = 7
+    lower_range=0
+    higher_range=100
     @when("click", "#guessBtn")
     def check_guess(event=None):
-        global count
+        global count,lower_range,higher_range
         if event:
             event.preventDefault() 
 
         guess = document.getElementById("guess").value
         result = document.getElementById("result")
+        range_display = document.getElementById("range_display");
         restartBtn=document.getElementById("restartBtn")
         attempts_display=document.getElementById("attempts")
         result.classList.remove("shake")
+
         if not guess:
             result.innerText = "Enter a number!"
             result.classList.add("show")
@@ -50,6 +54,7 @@
 
         guess = int(guess)
         count -= 1
+
         attempts_display.innerText=f"Attempts Left: {count}"
         if guess == num:
             result.innerText = f"CONGRATULATIONS!\n The correct answer was: {num}" 
@@ -63,16 +68,19 @@
 
         elif guess < num:
             result.innerText = "Go Higher!"
+            lower_range=guess
             result.classList.remove("shake")
             result.offsetWidth  
             result.classList.add("shake")
+            range_display.innerText=f"Range: {lower_range}-{higher_range}"
 
         elif guess > num:
             result.innerText = "Go Lower!"
+            higher_range=guess
             result.classList.remove("shake")
             result.offsetWidth  
             result.classList.add("shake")
-
+            range_display.innerText=f"Range: {lower_range}-{higher_range}"
 
         if count==0:
             result.innerText = f"Uh Oh! GAME OVER!!\n The answer was: {num}"
@@ -82,7 +90,9 @@
             guessBtn.disabled=True
             guess.disabled=True
             attempts_display.style.display = "none"
-
+        guess_input = document.getElementById("guess")
+        guess_input.value = ""
+        guess_input.focus()
 
 
     @when("click","#restartBtn")    
