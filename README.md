@@ -1,12 +1,17 @@
 ## Number Guessing Game
-This project includes two implementations of a number guessing game:
+As the name suggests, you are required to guess the number chosen by the computer.
+
+# Live Demo
+[Play Here] https://giornogiovanna12345.github.io/number-guessing-game/
+
+Two versions of the game are given
 
 # 🌐 Web Version
 Built using HTML, CSS and PyScript.
 Runs in the browser.
 
 Location:
-web-version/
+docs/
 
 # 💻 CLI Version
 Built using pure Python.
